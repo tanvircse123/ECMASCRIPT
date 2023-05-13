@@ -1,0 +1,38 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: 'Josefin Sans',sans-serif;
+
+}
+.logo{
+    color: red;
+}
+
+body{
+    background-image: url("../Images/bg.avif");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+.nav-item{
+    font-weight: bold;
+}
+
+h1{
+    color: white;
+    padding: 100px 0px 20px;
+    font-size: 1000px;
+}
+
+h3{
+    color: white;
+    font-size: 25px;
+    margin-bottom: 50px;
+}
+
+h4{
+    padding-top: 20px;
+    color: white;
+    letter-spacing: 2px;
+}
