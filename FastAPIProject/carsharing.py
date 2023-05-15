@@ -59,6 +59,8 @@ def car_by_id(id:int):
 
 @app.post("/api/cars")
 def add_car(car:Car)-> CarOutputDTO:
-    db.append(car) # add the car in the list with the append
+    new_car = CarOutputDTO(size=car.size,doors=car.doors,fuel=car.fuel,transmission=car.transmission,id=len(db)+1)
+    db.append(new_car) # add the car in the list with the append
     save_db(db) ## then save the entire list into json/remember entire list
+    return new_car
     

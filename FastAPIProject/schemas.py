@@ -19,12 +19,14 @@ class CarOutputDTO(Car):
 
 # output is the list of car object
 def load_db() -> list[CarOutputDTO]:
-    """load a list of car objects from a JSON File"""
+    """load a list of car objects from a JSON File
+        we use the CarOutput because we need the Car id in the database
+    """
     with open("car.json") as f:
         return [CarOutputDTO.parse_obj(obj) for obj in json.load(f)]
      
     
-def save_db(cars:list[Car]):
+def save_db(cars:list[CarOutputDTO]):
     """ it will take all the car as an input with the new car that you added
     then write it to the file car.json"""
     with open('car.json','w') as f:
