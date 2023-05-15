@@ -1,6 +1,6 @@
 from datetime import datetime
 from fastapi import FastAPI,HTTPException
-from  schemas import load_db
+from  schemas import Car, load_db,save_db
 app = FastAPI()
 
 
@@ -48,10 +48,17 @@ def cars(size: str|None = None,doors:int|None = None)-> list:
     return result
 
 @app.get("/api/cars/{id}")
-def car_by_id(id:int) -> dict:
+def car_by_id(id:int):
     result = [car for car in db if car.id== id]
     if result:
         return result[0]
     else:
         raise HTTPException(status_code=404,detail="Item not Found")
-    return result[0] ## first or default
+    
+
+
+@app.post("/api/cars")
+def add_car(car:Car):
+    db.append(car) # add the car in the list with the append
+    save_db(db) ## then save the entire list into json/remember entire list
+    
