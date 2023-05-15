@@ -167,6 +167,6 @@ def cars(size: str|None = None,doors:int|None = None)-> list:
     return result
 
 @app.get("/api/cars/{id}")
-def car_by_id(id):
+def car_by_id(id:int) -> dict:
     result = [car for car in db if car['id'] == id]
     return result[0] ## first or default
