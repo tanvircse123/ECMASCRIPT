@@ -1,79 +1,86 @@
 [
     {
-        "id": 1,
         "size": "s",
         "fuel": "gasoline",
         "doors": 3,
-        "transmission": "auto"
+        "transmission": "auto",
+        "id": 1
     },
     {
-        "id": 2,
         "size": "s",
         "fuel": "electric",
         "doors": 3,
-        "transmission": "auto"
+        "transmission": "auto",
+        "id": 2
     },
     {
-        "id": 3,
         "size": "s",
         "fuel": "gasoline",
         "doors": 5,
-        "transmission": "manual"
+        "transmission": "manual",
+        "id": 3
     },
     {
-        "id": 4,
         "size": "m",
         "fuel": "electric",
         "doors": 3,
-        "transmission": "auto"
+        "transmission": "auto",
+        "id": 4
     },
     {
-        "id": 6,
         "size": "m",
         "fuel": "gasoline",
         "doors": 5,
-        "transmission": "manual"
+        "transmission": "manual",
+        "id": 6
     },
     {
-        "id": 7,
         "size": "l",
         "fuel": "diesel",
         "doors": 5,
-        "transmission": "manual"
+        "transmission": "manual",
+        "id": 7
     },
     {
-        "id": 8,
         "size": "l",
         "fuel": "electric",
         "doors": 5,
-        "transmission": "auto"
+        "transmission": "auto",
+        "id": 8
     },
     {
-        "id": 9,
         "size": "l",
         "fuel": "hybrid",
         "doors": 5,
-        "transmission": "auto"
+        "transmission": "auto",
+        "id": 9
     },
     {
-        "id": 10,
         "size": "xl",
         "fuel": "electric",
         "doors": 5,
-        "transmission": "auto"
+        "transmission": "auto",
+        "id": 10
     },
     {
-        "id": 10,
         "size": "xl",
         "fuel": "electric",
         "doors": 5,
-        "transmission": "auto"
+        "transmission": "auto",
+        "id": 10
     },
     {
-        "id": 11,
         "size": "xxl",
         "fuel": "electric",
         "doors": 3,
-        "transmission": "auto"
+        "transmission": "auto",
+        "id": 11
+    },
+    {
+        "size": "mxl",
+        "fuel": "petrol",
+        "doors": 6,
+        "transmission": "manual",
+        "id": 12
     }
 ]
