@@ -1,6 +1,6 @@
 from datetime import datetime
 from fastapi import FastAPI,HTTPException
-from  schemas import Car, load_db,save_db
+from  schemas import Car, load_db,save_db,CarOutputDTO
 app = FastAPI()
 
 
@@ -33,7 +33,7 @@ def get_cars():
 
 @app.get("/api/getcarbysize")
 def getCarBySize(size):
-    return [car for car in db if car['size']==size]
+    return [car for car in db if car.size==size]
 
 
 # we can combine two function into one
@@ -58,7 +58,7 @@ def car_by_id(id:int):
 
 
 @app.post("/api/cars")
-def add_car(car:Car):
+def add_car(car:Car)-> CarOutputDTO:
     db.append(car) # add the car in the list with the append
     save_db(db) ## then save the entire list into json/remember entire list
     
