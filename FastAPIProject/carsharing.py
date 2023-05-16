@@ -57,10 +57,37 @@ def car_by_id(id:int):
     
 
 
-@app.post("/api/cars")
+@app.post("/api/cars",response_model=CarOutputDTO)
 def add_car(car:Car)-> CarOutputDTO:
     new_car = CarOutputDTO(size=car.size,doors=car.doors,fuel=car.fuel,transmission=car.transmission,id=len(db)+1)
     db.append(new_car) # add the car in the list with the append
     save_db(db) ## then save the entire list into json/remember entire list
     return new_car
+    
+
+
+
+@app.delete("/api/cars/{id}",status_code=204)
+def remove_car(id:int)->None:
+    matches = [car for car in db if car.id == id];
+    if matches:
+        car = matches[0]
+        db.remove(car)
+        save_db(db)
+    else:
+        raise HTTPException(status_code=404,detail="car not found")
+
+@app.put("/api/cars/{id}",response_model=CarOutputDTO)
+def update_car(id:int,new_car:Car) -> CarOutputDTO:
+    matches = [car for car in db if car.id == id];
+    if matches:
+        car = matches[0]
+        car.fuel = new_car.fuel
+        car.size = new_car.size
+        car.doors = new_car.doors
+        car.transmission = new_car.transmission
+        save_db(db)
+        return car
+    else:
+        raise HTTPException(status_code=404,detail="Car not Found")
     

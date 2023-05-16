@@ -10,9 +10,17 @@ class Car(BaseModel):
     doors:int
     transmission:str | None = "auto"
 
+class Trip(BaseModel):
+    start:int
+    end:int
+    description:str
+
+class TripOutputDTO(Trip):
+    id:int
 
 class CarOutputDTO(Car):
     id:int
+    trips:list[TripOutputDTO] = []
 
 
 
@@ -31,6 +39,7 @@ def save_db(cars:list[CarOutputDTO]):
     then write it to the file car.json"""
     with open('car.json','w') as f:
         all_car = [car.dict() for car in cars]
+        # dump the dictionary it will be saved as a json
         json.dump(all_car,f,indent=4)
         
     
