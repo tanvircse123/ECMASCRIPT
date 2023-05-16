@@ -1,6 +1,6 @@
 from datetime import datetime
 from fastapi import FastAPI,HTTPException
-from  schemas import Car, load_db,save_db,CarOutputDTO
+from  schemas import Car, load_db,save_db,CarOutputDTO,Trip,TripOutputDTO
 app = FastAPI()
 
 
@@ -90,4 +90,22 @@ def update_car(id:int,new_car:Car) -> CarOutputDTO:
         return car
     else:
         raise HTTPException(status_code=404,detail="Car not Found")
+    
+
+# adding nested information 
+@app.post("/api/cars/{car_id}/trips",response_model=TripOutputDTO)
+def add_trip(car_id:int,trip:Trip)-> TripOutputDTO:
+    #find the car first
+    matches = [car for car in db if car.id == car_id]
+    if matches:
+        car = matches[0]
+        new_trip = TripOutputDTO(id=len(car.trips)+1,start=trip.start,end=trip.end,description=trip.description)
+        car.trips.append(new_trip)
+        save_db(db)
+        return new_trip
+    else:
+        raise HTTPException(status_code=404,detail="car not Found")
+    
+# delete trip
+
     
