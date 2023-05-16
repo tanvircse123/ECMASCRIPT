@@ -10,10 +10,15 @@ class Car(BaseModel):
     doors:int
     transmission:str | None = "auto"
 
+
+
 class Trip(BaseModel):
     start:int
     end:int
     description:str
+
+class CarNested(Car):
+    trips : list[Trip] = []
 
 class TripOutputDTO(Trip):
     id:int

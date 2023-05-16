@@ -114,13 +114,88 @@
         "fuel": "electric",
         "doors": 5,
         "transmission": "auto",
-        "id": 10,
+        "id": 100,
         "trips": [
             {
                 "start": 120,
                 "end": 330,
                 "description": "Good Trips",
                 "id": 1
+            }
+        ]
+    },
+    {
+        "size": "xxxl",
+        "fuel": "electric",
+        "doors": 10,
+        "transmission": "sub manual",
+        "id": 10,
+        "trips": [
+            {
+                "start": 100,
+                "end": 200,
+                "description": "Good quality",
+                "id": 1
+            },
+            {
+                "start": 500,
+                "end": 1200,
+                "description": "better quality",
+                "id": 1
+            },
+            {
+                "start": 600,
+                "end": 1300,
+                "description": "best quality",
+                "id": 1
+            }
+        ]
+    },
+    {
+        "size": "kxl",
+        "fuel": "electric",
+        "doors": 7,
+        "transmission": "auto",
+        "id": 11,
+        "trips": [
+            {
+                "start": 10,
+                "end": 1000,
+                "description": "Good",
+                "id": 1
+            },
+            {
+                "start": 20,
+                "end": 2000,
+                "description": "Better",
+                "id": 1
+            },
+            {
+                "start": 30,
+                "end": 3000,
+                "description": "Best",
+                "id": 1
+            }
+        ]
+    },
+    {
+        "size": "kxl",
+        "fuel": "electric",
+        "doors": 7,
+        "transmission": "auto",
+        "id": 12,
+        "trips": [
+            {
+                "start": 10,
+                "end": 1000,
+                "description": "Good",
+                "id": 1
+            },
+            {
+                "start": 20,
+                "end": 2000,
+                "description": "Better",
+                "id": 2
             }
         ]
     }

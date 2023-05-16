@@ -1,6 +1,6 @@
 from datetime import datetime
 from fastapi import FastAPI,HTTPException
-from  schemas import Car, load_db,save_db,CarOutputDTO,Trip,TripOutputDTO
+from  schemas import Car, load_db,save_db,CarOutputDTO,Trip,TripOutputDTO,CarNested
 app = FastAPI()
 
 
@@ -106,6 +106,36 @@ def add_trip(car_id:int,trip:Trip)-> TripOutputDTO:
     else:
         raise HTTPException(status_code=404,detail="car not Found")
     
-# delete trip
+# nested post
+@app.post("/api/nestedcarpost")
+def add_nested_trip(carnested:CarNested)->CarOutputDTO:
+    new_car = CarOutputDTO(id=len(db)+1,size=carnested.size,fuel=carnested.fuel,transmission=carnested.transmission,doors=carnested.doors)
+    
+    trip_id = 1
+    for trip in carnested.trips:
+        new_trip = TripOutputDTO(id=trip_id,start=trip.start,end=trip.end,description=trip.description)
+        new_car.trips.append(new_trip)
+        trip_id+=1
+    db.append(new_car)
+    save_db(db)
+    return new_car
+    
+#delete trip
+@app.delete("/api/car/{car_id}/trips/{trip_id}")
+def delete_trip(car_id:int,trip_id:int):
+    matches = [car for car in db if car.id == car_id]
+    if matches:
+        # in the database there will be unique key
+        car = matches[0]
+        trip = [item for item in car.trips if item.id == trip_id]
+        if trip:
+            t = trip[0]
+            car.trips.remove(t)
+            save_db(db);
+        else:
+            raise HTTPException(status_code=404,detail="trip not found")
+    else:
+        raise HTTPException(status_code=404,detail="car not Found")
+    
 
     
