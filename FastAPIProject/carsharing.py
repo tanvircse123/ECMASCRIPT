@@ -138,4 +138,20 @@ def delete_trip(car_id:int,trip_id:int):
         raise HTTPException(status_code=404,detail="car not Found")
     
 
-    
+@app.put("/api/car/{car_id}/trips/{trip_id}")
+def edit_trip(car_id:int,trip_id:int,updated_trip:Trip):
+    matches = [car for car in db if car.id == car_id]
+    if matches:
+        # in the database there will be unique key
+        car = matches[0]
+        trip = [item for item in car.trips if item.id == trip_id]
+        if trip:
+            t = trip[0]
+            t.start = updated_trip.start
+            t.end = updated_trip.end
+            t.description = updated_trip.description
+            save_db(db);
+        else:
+            raise HTTPException(status_code=404,detail="trip not found")
+    else:
+        raise HTTPException(status_code=404,detail="car not Found")
