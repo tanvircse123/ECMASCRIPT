@@ -1,10 +1,23 @@
 from datetime import datetime
 from fastapi import FastAPI,HTTPException
-from  schemas import Car, load_db,save_db,CarOutputDTO,Trip,TripOutputDTO,CarNested
+from  schemas import Car, load_db,save_db,CarOutputDTO,Trip,TripOutputDTO,CarNested,CarDb
+from sqlmodel import Session, create_engine,SQLModel
+
 app = FastAPI()
-
-
 db = load_db()
+database_path = "sqlite:///carsharing.db"
+engine = create_engine(database_path,
+                       connect_args={"check_same_thread":False}, # this is only needed for sqlite
+                       echo=True ## for log generation
+                       
+                       )
+
+@app.on_event("startup")
+def on_startup():
+    """it will execute when the program start create the database if not there is"""
+    SQLModel.metadata.create_all(engine)
+    
+
 
 
 @app.get("/")
@@ -57,13 +70,25 @@ def car_by_id(id:int):
     
 
 
-@app.post("/api/cars",response_model=CarOutputDTO)
-def add_car(car:Car)-> CarOutputDTO:
-    new_car = CarOutputDTO(size=car.size,doors=car.doors,fuel=car.fuel,transmission=car.transmission,id=len(db)+1)
-    db.append(new_car) # add the car in the list with the append
-    save_db(db) ## then save the entire list into json/remember entire list
-    return new_car
-    
+# @app.post("/api/cars",response_model=CarOutputDTO)
+# def add_car(car:Car)-> CarOutputDTO:
+#     new_car = CarOutputDTO(size=car.size,doors=car.doors,fuel=car.fuel,transmission=car.transmission,id=len(db)+1)
+#     db.append(new_car) # add the car in the list with the append
+#     save_db(db) ## then save the entire list into json/remember entire list
+#     return new_car
+@app.post("/api/cars")
+def add_car(car_input:Car):
+    """in the fast api database transaction is done by
+    Session key word"""
+    with Session(engine) as session:
+        new_car = CarDb.from_orm(car_input)
+        session.add(new_car)
+        session.commit()
+        # before commit the id of the car is None
+        # after commit id will be generated and with refresh
+        # we update the car obj with new id
+        session.refresh(new_car)
+        return new_car
 
 
 
@@ -150,7 +175,7 @@ def edit_trip(car_id:int,trip_id:int,updated_trip:Trip):
             t.start = updated_trip.start
             t.end = updated_trip.end
             t.description = updated_trip.description
-            save_db(db);
+            save_db(db)
         else:
             raise HTTPException(status_code=404,detail="trip not found")
     else:

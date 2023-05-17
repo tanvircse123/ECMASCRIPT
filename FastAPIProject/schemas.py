@@ -1,10 +1,11 @@
 import json
-from pydantic import BaseModel
-
+#from pydantic import BaseModel
+from sqlmodel import SQLModel,Field
 
 # just like c# model
 # this is a pyhon model
-class Car(BaseModel):
+# SQLModel inherit the pydentic model and add sql behaviour to it
+class Car(SQLModel):
     size:str
     fuel:str| None = "electric"
     doors:int
@@ -12,7 +13,7 @@ class Car(BaseModel):
 
 
 
-class Trip(BaseModel):
+class Trip(SQLModel):
     start:int
     end:int
     description:str
@@ -28,6 +29,10 @@ class CarOutputDTO(Car):
     trips:list[TripOutputDTO] = []
 
 
+
+class CarDb(Car,table=True):
+    id: int | None = Field(primary_key=True,default=None)
+    
 
 
 # output is the list of car object
