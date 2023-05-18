@@ -32,6 +32,11 @@ class CarOutputDTO(Car):
 
 class CarDb(Car,table=True):
     id: int | None = Field(primary_key=True,default=None)
+
+class TripDB(Trip,table=True):
+    id: int | None = Field(primary_key=True,default=None)
+    car_id:int = Field(foreign_key="car.id")
+    
     
 
 
